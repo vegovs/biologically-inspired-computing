@@ -1,5 +1,5 @@
 # Biologically Inspired Computing
-Algorithms related to biologically inspired computing, optimisation and search implemented for educational purpose in coherence with INF2220.
+Algorithms related to biologically inspired computing, optimisation and search implemented for educational purpose in coherence with course [INF3490](https://www.uio.no/studier/emner/matnat/ifi/INF3490/).
 
 ## Implemented Algorithms/Solutions
 ### Multi-layer Perceptron: 
