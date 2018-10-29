@@ -10,18 +10,17 @@ class Mlp:
         self.momentum = 0.0
 
         # Hidden layer weights with bias
-        self.v = [[random.uniform(-1.0, 1.0)] * nhidden, [random.uniform(-1.0, 1.0)] * len(inputs[0] + 1)]
-        self.v = np.random.uniform(low=-1.0, high=1.0, size=(nhidden, len(inputs[0]) + 1))
+        self.v = [[random.uniform(-1.0, 1.0) for _ in range(len(inputs[0]) + 1)] for _ in range(nhidden)]
         # Delta update for adding momentum
-        self.update_v = np.zeros(np.shape(self.v))
+        self.update_v = [[0] * len(self.v[0])] * nhidden
         # Output layer weights with bias
-        self.w = np.random.uniform(low=-1.0, high=1.0, size=(8, nhidden + 1))
+        self.w = [[random.uniform(-1.0, 1.0) for _ in range(nhidden + 1)] for _ in range(8)]
         # Delta update for adding momentum
-        self.update_w = np.zeros(np.shape(self.w))
+        self.update_w = [[0] * (nhidden + 1)] * len(targets[0])
         # Hidden layer activation
-        self.a = np.zeros(nhidden)
+        self.a = [0] * nhidden
         # Output activation
-        self.y = np.zeros(len(targets[0]))
+        self.y = [0] * len(targets[0])
 
     def earlystopping(self, inputs, targets, valid, validtargets):
         """Runs the algorithm, for every training epoch: computes the total sum of squared error from the validation set
