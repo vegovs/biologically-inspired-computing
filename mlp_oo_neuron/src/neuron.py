@@ -16,9 +16,12 @@ class Neuron(object):
         self.n_inputs = n_inputs
         self.hidden = hidden
         self.index = index
+        self.alpha = 0.1
 
         # Weights
         self.w = [random.uniform(-1.0, 1.0) for _ in range(n_inputs + 1)]
+        # Weight updates used for momentum
+        self.w_update = [0] * (n_inputs + 1)
         # Activation value
         self.y = 0
         # Error value
@@ -63,25 +66,28 @@ class Neuron(object):
         if self.hidden:
             # Sum of the output-delta*corresponding weight
             sum_wd = 0
-            # For every output neuron
-            for i in range(1, len(K)):
-                # Add w_jk*delta_k, (+1 to avoid bias)
-                sum_wd += K[i].d*K[i].w[self.index]
+            # For every output neuron k
+            for k in range(len(K)):
+                # Indexing weights +1 to avoid bias weight
+                sum_wd += K[k].d*K[k].w[self.index + 1]
             self.d = self.y * (1 - self.y) * sum_wd
         else:
             self.d = (self.y - K) * self.y * (1 - self.y)
         return self
 
     def update_w(self, ax):
-        """Update neuron weights using w <- w-eta*error*ax
+        """Update neuron weights with momentum using w <- w-eta*error*ax + alpha*w_update
 
         :param ax: Weight input(i.e for output layer: activation from previous hidden layer
         :return: Self
         """
 
         # Update bias weight
-        self.w[0] += - self.eta * self.d
+        self.w_update[0] = (- self.eta * self.d * self.w[0]) + (self.alpha * self.w_update[0])
+        self.w[0] += self.w_update[0]
         # Update rest of weights
         for j in range(1, (len(self.w))):
-            self.w[j] += - self.eta * self.d * ax[j-1]
+            self.w_update[j] = (- self.eta * self.d * ax[j-1]) + (self.alpha * self.w_update[j])
+            self.w[j] += self.w_update[j]
+
         return self
