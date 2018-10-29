@@ -9,7 +9,7 @@ class Mlp:
 
         self.beta = 1
         self.eta = 0.1
-        self.momentum = 0.0
+        self.momentum = 0.1
 
         # Hidden layer weights with bias
         self.v = np.random.uniform(low=-1.0, high=1.0, size=(nhidden, len(inputs[0]) + 1))
