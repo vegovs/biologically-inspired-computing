@@ -76,17 +76,31 @@ class Mlp:
         """
 
         # Compute the error at the output
-        delta_o = (target - self.y)
+        delta_o = [0] * len(self.y)
+        for i in range(delta_o):
+            delta_o[i] = target[i] - self.y[i]
+
+        delta_h = [0] * len(self.a)
+        # Compute the weight * output error sum for the error in the hidden layer
+        sum_wd = [0] * len(delta_h)
+        for i in range(delta_h):
+            # Indexing weight +1 to avoid bias
+            sum_wd[i] = sum(self.w[k][i + 1] * delta_o[k] for k in range(delta_o))
         # Compute the error in the hidden layer
-        delta_h = self.a * (1 - self.a) * np.dot(self.w.transpose(), delta_o)[1:]
+        for i in range(delta_h):
+            delta_h[i] = self.a[i] * (1 - self.a[i]) * sum_wd[i]
 
         # Update the output layer weights
-        self.update_w = (np.outer(delta_o, np.insert(self.a, 0, -1.0))) + self.momentum * self.update_w
-        # Update the hidden layer weights
-        self.update_v = (np.outer(delta_h, np.insert(input, 0, -1.0))) + self.momentum * self.update_v
+        for j in range(self.update_w):
+            for k in range(self.update_w[0]):
+                self.update_w[j][k] = -self.eta * delta_o[k] * self.a[j] + self.momentum * self.update_w[j][k]
+                self.w[j][k] += self.update_w
 
-        self.w += self.update_w
-        self.v += self.update_v
+        # Update the hidden layer weights
+        for j in range(self.update_v):
+            for k in range(self.update_v[0]):
+                self.update_v[j][k] = -self.eta * delta_h[k] * self.a[j] + self.momentum * self.update_v[j][k]
+                self.v[j][k] += self.update_v
 
     def forward(self, inputs):
         """Computes the activation function from the hidden layer, to the output layer.
