@@ -1,6 +1,7 @@
 #!/usr/bin/env Python3
 import numpy as np
-import mlp
+
+from src import mlp
 
 filename = '../data/movements_day1-3.dat'
 

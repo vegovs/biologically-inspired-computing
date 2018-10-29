@@ -1,4 +1,5 @@
 import random
+
 from pandas_ml import ConfusionMatrix
 
 from src.neuron import Neuron
@@ -44,7 +45,7 @@ class Mlp:
             error_sum.append(sum(errors))
             print("Error sum from validation set: ", error_sum[i])
             if error_sum[i] > error_sum[i - 1]:
-                print("Error increasing: ", error_sum[i], ">", error_sum[i], ", stopping training.")
+                print("Error increasing: ", error_sum[i], ">", error_sum[i],)
                 fit = True
 
     def _train(self, inputs, targets, iterations=2):
