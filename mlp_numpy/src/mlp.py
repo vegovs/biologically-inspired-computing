@@ -78,7 +78,7 @@ class Mlp:
         """
 
         # Compute the error at the output
-        delta_o = (target - self.y)
+        delta_o = (target - self.y) * self.y * (1 - self.y)
         # Compute the error in the hidden layer
         delta_h = self.a * (1 - self.a) * np.dot(self.w.transpose(), delta_o)[1:]
 
