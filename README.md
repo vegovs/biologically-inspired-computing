@@ -8,7 +8,7 @@ The idea is that we can, through supervised learning, get a PHC to learn which h
 
 * [mlp_oo_neuron](http://www.ovstegard.no/INF3490-Kompendium/#multi-layer-perceptronmpl) [:white_check_mark:](mlp_oo_neuron/)
 	* A crude and complicated implementation of an MLP as a challenge. OOP with a neuron class and no matrix functions or machine learning modules.
-* [mlp_2d_list](http://www.ovstegard.no/INF3490-Kompendium/#multi-layer-perceptronmpl) [:wip:](mlp_2d_list/)
+* [mlp_2d_list](http://www.ovstegard.no/INF3490-Kompendium/#multi-layer-perceptronmpl) [:construction:](mlp_2d_list/)
 	* A somewhat less complicated, but crude implementation of an MLP. 2D list and no matrix functions or machine learning modules.
 * [mlp_numpy](http://www.ovstegard.no/INF3490-Kompendium/#multi-layer-perceptronmpl) [:white_check_mark:](mlp_numpy/)
 	* Simple two-layer MLP using numpy and matrix operations.
